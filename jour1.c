@@ -1,59 +1,48 @@
 #include <stdio.h>
-#include <stdlib.h>
 
+int main() {
+    FILE *f = fopen("01.input", "r");
+    
 
-int main(){
-
-
-    FILE *monFichier;
     char turn[100];
-    //int signe=0; // le signe est +
-    //int signe=1; //le signe est -
-    //char carac[];
+    int dist;
+    int position = 0;      
+    int cpt = 0;      
 
+    while (fgets(turn, sizeof(turn), f)) {
+        char direction = turn[0];//ici on a R et L         
+        sscanf(turn + 1, "%d", &dist);   
 
-    monFichier=fopen("01.input","r");
-
-    while (fgets(turn,sizeof(turn) ,monFichier))
-    {
-        
-        printf(" le caractère 1er de ");
-        printf("%s\n",turn);
-        
-        //printf(" %c\n",turn[0]);
-
-        if(turn[0]=='R'){
-            printf("right");
-
+        if (direction == 'R') {
+            position = (position + dist) % 100;
+        } else {  
+            
+            
+            
+            // pour le L
+            position = (position - dist) % 100;
+            if (position < 0) position += 100;
         }
 
-        else{
-            printf("left");
+        if (position == 0) {
+            cpt++;
         }
-
     }
-    
 
-    
+    fclose(f);
+
+    printf("le 0 %d fois.\n", cpt);
+    return 0;
+}
 
 
 
 
 
-    //fgets(turn,sizeof(turn),monFichier)
+//fgets(turn,sizeof(turn),monFichier)
 
     //fscanf(monFichier,"%s",&turn[]);
 
     //printf("%c\n", turn[3]);
 
     //fclose(monFichier);
-
-
-
-
-    
-
-
-
-    return 0;
-}
